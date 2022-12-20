@@ -46,6 +46,7 @@ The above command should open a `turtlesim` window and spawn one turtle-resembli
 ## Author(s)
 
 Matti Kortelainen, PhD 
+
 forename.surname@uef.fi
 
 ## License and copyright
