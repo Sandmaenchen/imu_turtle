@@ -51,6 +51,12 @@ forename.surname@uef.fi
 
 ## License and copyright
 
-Copyright 2022 University of Eastern Finland
+Copyright 2022 University of Eastern Finland.
 
 This demo project utilizes the [pySerial](https://pyserial.readthedocs.io/en/latest/pyserial.html) module for Python, subject to BSD 3-Clause License.
+
+## Acknowledgments
+
+This demo project was created as a part of the Experts in Medical Computing project, funded by European Social Fund (ESF) and the Centre for Economic Development, Transport, and the Environment North Savo.
+
+Idea for implementation of `KeyboardPublisher` class came from the [ros2-keyboard-driver](https://github.com/RoverRobotics-archive/ros2-keyboard-driver) repository's [KeystrokeListen](https://github.com/RoverRobotics-archive/ros2-keyboard-driver/blob/master/keystroke/listen.py) class. Otherwise, the codes were mainly written based on the [ROS 2 Humble tutorials](https://docs.ros.org/en/humble/Tutorials.html).
