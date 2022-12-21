@@ -6,6 +6,7 @@ This is a simple demo project for robotics courses at UEF that utilize ROS 2 (Hu
 
 - You have installed Ubuntu (v.22.04.1) on Raspberry Pi 4 Model B with at least 4 GB of RAM
 - You have installed ROS 2 and configured your environment (sourcing ROS setup files and `colcon` -related functions in `.bashrc` shell startup script)
+- You have installed `turtlesim` package
 - You have the IMU connected to Raspberry Pi
 
 ## Installation
