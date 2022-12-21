@@ -43,6 +43,7 @@ The above command should open a `turtlesim` window and spawn one turtle-resembli
 - Rotating the IMU around the z-axis changes the angular velocity of the object (the object rotates clockwise/anti-clockwise)
 - Rotating the IMU around x-axis changes the linear velocity along x-axis of the object (the object moves forward/backward)
 - Rotating the IMU around y-axis changes the linear velocity along y-axis of the object (the object moves left/right)
+- Pressing space on keyboard resets the reference IMU orientation to the current orientation
 
 ## Author(s)
 
