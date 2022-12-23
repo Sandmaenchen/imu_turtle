@@ -28,7 +28,7 @@ class TurtleController(Node):
         self.callback_group2 = rclpy.callback_groups.MutuallyExclusiveCallbackGroup();
         self.callback_group3 = rclpy.callback_groups.MutuallyExclusiveCallbackGroup();
 
-        self.publisher_ = self.create_publisher(Twist, 'turtlesim1/turtle1/cmd_vel', qos_profile=10, *, callback_group=self.callback_group3);
+        self.publisher_ = self.create_publisher(Twist, 'turtlesim1/turtle1/cmd_vel', qos_profile=10, callback_group=self.callback_group3);
         timer_period = 0.1;  # seconds
         timer_period_quick = 0.05; #seconds
         self.timer_publish = self.create_timer(timer_period, self.publish_velocity_input, callback_group=self.callback_group2);
@@ -39,14 +39,14 @@ class TurtleController(Node):
             Quaternion,
             'topic1',
             self.topic1_callback,
-            10,*,callback_group=self.callback_group1);
+            10, callback_group=self.callback_group1);
         self.subscription1;
 
         self.subscription2 = self.create_subscription(
             String,
             'topic2',
             self.topic2_callback,
-            10,*,callback_group=self.callback_group1);
+            10, callback_group=self.callback_group1);
         self.subscription2;
 
     def topic1_callback(self, msg):
