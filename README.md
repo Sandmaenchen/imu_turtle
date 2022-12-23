@@ -17,7 +17,7 @@ cd <your_path>
 git clone https://github.com/Sandmaenchen/imu_turtle.git
 ```
 
-Edit the code in file `node1.py` on line 15 at `<your_path>/imu_turtle/ros2_ws/src/imu_turtle/imu_turtle` to match the USB port where you connected the IMU.
+Edit the code in file `node1.py` on line 15 at `<your_path>/imu_turtle/ros2_ws/src/imu_turtle/imu_turtle` to match the USB port where you connected the IMU. Also edit the code on line 6 to match your path.
 
 Build the `quaternion_interface` package and the `imu_turtle` package:
 ```
