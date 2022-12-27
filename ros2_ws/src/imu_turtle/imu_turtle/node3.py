@@ -124,8 +124,11 @@ def main(args=None):
     executor = rclpy.executors.MultiThreadedExecutor();
 
     turtle_controller = TurtleController();
+    
+    executor.add_node(turtle_controller);
+    executor.spin();
 
-    rclpy.spin(turtle_controller,executor);
+    #rclpy.spin(turtle_controller,executor); #another way to do this
 
     turtle_controller.destroy_node();
     rclpy.shutdown();
