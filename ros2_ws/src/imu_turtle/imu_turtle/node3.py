@@ -7,15 +7,17 @@ from quaternion_interface.msg import Quaternion;
 from std_msgs.msg import String;
 from geometry_msgs.msg import Twist;
 
+
+
 class TurtleController(Node):
 
     def __init__(self):
         super().__init__('turtle_controller');
 
-        self.quat0a = np.quaternion(1,0,0,0); #reference quaternion
-        self.quat1a = np.quaternion(1,0,0,0); #current quaternion
-        self.quat0b = np.quaternion(1,0,0,0);
-        self.quat1b = np.quaternion(1,0,0,0);
+        self.quat0a = np.quaternion(1,0,0,0); #reference quaternion; handled in callback groups 1 and 2
+        self.quat1a = np.quaternion(1,0,0,0); #current quaternion; handled in callback groups 1 and 2
+        self.quat0b = np.quaternion(1,0,0,0); #reference quaternion; handled in callback groups 3 and 4
+        self.quat1b = np.quaternion(1,0,0,0); #current quaternion; handled in callback groups 3 and 4
         self.x_vel_default = 2.0;
         self.y_vel_default = 2.0;
         self.z_ang_default = 1.0;
@@ -25,15 +27,13 @@ class TurtleController(Node):
         self.velocity.angular.z = 0.0;
         
         self.callback_group1 = rclpy.callback_groups.MutuallyExclusiveCallbackGroup();
-        self.callback_group2 = rclpy.callback_groups.MutuallyExclusiveCallbackGroup();
+        self.callback_group2 = rclpy.callback_groups.ReentrantCallbackGroup();
         self.callback_group3 = rclpy.callback_groups.MutuallyExclusiveCallbackGroup();
-
-        self.publisher_ = self.create_publisher(Twist, 'turtlesim1/turtle1/cmd_vel', qos_profile=10, callback_group=self.callback_group3);
-        timer_period = 0.1;  # seconds
-        timer_period_quick = 0.05; #seconds
-        self.timer_publish = self.create_timer(timer_period, self.publish_velocity_input, callback_group=self.callback_group2);
-        self.timer_compute = self.create_timer(timer_period, self.compute_velocity, callback_group=self.callback_group2);
-        self.timer_copy = self.create_timer(timer_period_quick, self.copy_quaternions, callback_group=self.callback_group2);
+        self.callback_group4 = rclpy.callback_groups.MutuallyExclusiveCallbackGroup();
+        
+        self.publisher0a_ = self.create_publisher(Quaternion, 'topic0a', qos_profile=10, callback_group=self.callback_group2);
+        self.publisher0b_ = self.create_publisher(Quaternion, 'topic0b', qos_profile=10, callback_group=self.callback_group2);
+        self.publisher_ = self.create_publisher(Twist, 'turtlesim1/turtle1/cmd_vel', qos_profile=10, callback_group=self.callback_group4);
 
         self.subscription1 = self.create_subscription(
             Quaternion,
@@ -48,38 +48,59 @@ class TurtleController(Node):
             self.topic2_callback,
             10, callback_group=self.callback_group1);
         self.subscription2;
+        
+        self.subscription0a = self.create_subscription(
+            Quaternion,
+            'topic0a',
+            self.topic0a_callback,
+            10, callback_group=self.callback_group3);
+        self.subscription0a;
+        
+        self.subscription0b = self.create_subscription(
+            Quaternion,
+            'topic0b',
+            self.topic0b_callback,
+            10, callback_group=self.callback_group3);
+        self.subscription0b;
+        
 
     def topic1_callback(self, msg):
-        while not (self.callback_group1.beginning_execution(self.subscription1)):
-            time.sleep(0.0001);
-        self.quat1a = np.quaternion(msg.qw,msg.qx,msg.qy,msg.qz);
-        self.callback_group1.ending_execution(self.subscription1);
+        self.quat1a.w; = msg.qw;
+        self.quat1a.x; = msg.qx;
+        self.quat1a.y; = msg.qy;
+        self.quat1a.z; = msg.qz;
+        self.publisher0a_.publish(msg);
 
     def topic2_callback(self, msg):
-        while not (self.callback_group1.beginning_execution(self.subscription2)):
-            time.sleep(0.0001);
-        self.quat0a = np.copy(self.quat1a);
-        self.callback_group1.ending_execution(self.subscription2);
+        msg_b = Quaternion();
+        msg_b.qw; = self.quat1a.w;
+        msg_b.qx; = self.quat1a.x;
+        msg_b.qy; = self.quat1a.y;
+        msg_b.qz; = self.quat1a.z;
+        self.publisher0b_.publish(msg_b);
         
-    def copy_quaternions(self):
-        while not (self.callback_group2.beginning_execution(self.timer_copy)):
-            time.sleep(0.0001);
-        self.quat0b = np.copy(self.quat0a);
-        self.quat1b = np.copy(self.quat1a);
-        self.callback_group2.ending_execution(self.timer_copy);
+    def topic0a_callback(self,msg):
+        self.quat1b.w; = msg.qw;
+        self.quat1b.x; = msg.qx;
+        self.quat1b.y; = msg.qy;
+        self.quat1b.z; = msg.qz;      
+        compute_velocity();
+        publish_velocity_input();
+        
+    def topic0b_callback(self,msg):
+        self.quat0b.w; = msg.qw;
+        self.quat0b.x; = msg.qx;
+        self.quat0b.y; = msg.qy;
+        self.quat0b.z; = msg.qz;
+        
 
     def publish_velocity_input(self):
-        while not (self.callback_group2.beginning_execution(self.timer_publish)):
-            time.sleep(0.0001);
         self.publisher_.publish(self.velocity);
         self.get_logger().info(f"Publishing velocity: \n\t linear.x: {self.velocity.linear.x};" +
         f"\n\t linear.y: {self.velocity.linear.y};" +
         f"\n\t angular.z: {self.velocity.angular.z}");
-        self.callback_group2.ending_execution(self.timer_publish);
 
     def compute_velocity(self):
-        while not (self.callback_group2.beginning_execution(self.timer_compute)):
-            time.sleep(0.0001);
         try: #just in case IMU outputs zero-quaternion (division by zero..)
             q0 = self.quat0b/np.sqrt(self.quat0b.norm()); #quaternion.norm() actually produces SQUARE of the Euclidean norm!
             q1 = self.quat1b/np.sqrt(self.quat1b.norm()); #quaternion.norm() actually produces SQUARE of the Euclidean norm!
@@ -94,9 +115,7 @@ class TurtleController(Node):
             self.velocity.linear.y = 1 * self.y_vel_default * yangle / 90; #should not be -1
             self.velocity.angular.z = 1 * self.z_ang_default * zangle / 90; #should not be -1
         except:
-            pass;
-        self.callback_group2.ending_execution(self.timer_compute);
-            
+            pass;            
 
 
 def main(args=None):

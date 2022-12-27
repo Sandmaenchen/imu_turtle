@@ -4,7 +4,7 @@ import re;
 import rclpy;
 from rclpy.node import Node;
 sys.path.insert(0, '<your_path>/imu_turtle/ros2_ws/src');
-import serial0;
+import serial as serial0;
 from quaternion_interface.msg import Quaternion;
 
 class QuaternionPublisher(Node):
