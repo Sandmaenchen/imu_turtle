@@ -65,33 +65,33 @@ class TurtleController(Node):
         
 
     def topic1_callback(self, msg):
-        self.quat1a.w; = msg.qw;
-        self.quat1a.x; = msg.qx;
-        self.quat1a.y; = msg.qy;
-        self.quat1a.z; = msg.qz;
+        self.quat1a.w = msg.qw;
+        self.quat1a.x = msg.qx;
+        self.quat1a.y = msg.qy;
+        self.quat1a.z = msg.qz;
         self.publisher0a_.publish(msg);
 
     def topic2_callback(self, msg):
         msg_b = Quaternion();
-        msg_b.qw; = self.quat1a.w;
-        msg_b.qx; = self.quat1a.x;
-        msg_b.qy; = self.quat1a.y;
-        msg_b.qz; = self.quat1a.z;
+        msg_b.qw = self.quat1a.w;
+        msg_b.qx = self.quat1a.x;
+        msg_b.qy = self.quat1a.y;
+        msg_b.qz = self.quat1a.z;
         self.publisher0b_.publish(msg_b);
         
     def topic0a_callback(self,msg):
-        self.quat1b.w; = msg.qw;
-        self.quat1b.x; = msg.qx;
-        self.quat1b.y; = msg.qy;
-        self.quat1b.z; = msg.qz;      
-        compute_velocity();
-        publish_velocity_input();
+        self.quat1b.w = msg.qw;
+        self.quat1b.x = msg.qx;
+        self.quat1b.y = msg.qy;
+        self.quat1b.z = msg.qz;      
+        self.compute_velocity();
+        self.publish_velocity_input();
         
     def topic0b_callback(self,msg):
-        self.quat0b.w; = msg.qw;
-        self.quat0b.x; = msg.qx;
-        self.quat0b.y; = msg.qy;
-        self.quat0b.z; = msg.qz;
+        self.quat0b.w = msg.qw;
+        self.quat0b.x = msg.qx;
+        self.quat0b.y = msg.qy;
+        self.quat0b.z = msg.qz;
         
 
     def publish_velocity_input(self):
