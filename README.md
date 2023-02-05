@@ -7,6 +7,11 @@ This is a simple demo project for robotics courses at UEF that utilize ROS 2 (Hu
 - You have installed Ubuntu (v.22.04.1) on Raspberry Pi 4 Model B with at least 4 GB of RAM
 - You have installed ROS 2 and configured your environment (sourcing ROS setup files and `colcon` -related functions in `.bashrc` shell startup script)
 - You have installed `turtlesim` package
+- You have installed Python (v. 3.10.6)
+- You have installed NumPy (v. 1.23.5)
+- You have installed `numpy-quaternion` (v. 2022.4.2)
+- You have installed `pyserial` (v. 3.4) and added yourself to `dialout` group
+- You have installed `pynput` (v. 1.7.6)
 - You have the IMU connected to Raspberry Pi
 
 ## Installation
@@ -17,7 +22,7 @@ cd <your_path>
 git clone https://github.com/Sandmaenchen/imu_turtle.git
 ```
 
-Edit the code in file `node1.py` on line 15 at `<your_path>/imu_turtle/ros2_ws/src/imu_turtle/imu_turtle` to match the USB port where you connected the IMU. Also edit the code on line 6 to match your path.
+Edit the code in file `node1.py` on line 15 at `<your_path>/imu_turtle/ros2_ws/src/imu_turtle/imu_turtle` to match the USB port where you connected the IMU.
 
 Build the `quaternion_interface` package and the `imu_turtle` package:
 ```

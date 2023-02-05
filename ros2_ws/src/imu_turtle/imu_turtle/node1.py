@@ -3,7 +3,7 @@ import sys;
 import re;
 import rclpy;
 from rclpy.node import Node;
-sys.path.insert(0, '<your_path>/imu_turtle/ros2_ws/src');
+#sys.path.insert(0, '<your_path>/imu_turtle/ros2_ws/src');
 import serial as serial0; #for some reason, rosdep no longer complains about importing the installed package? no local copy needed.. (2022-12-22)
 from quaternion_interface.msg import Quaternion;
 
