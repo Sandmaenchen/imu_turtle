@@ -57,13 +57,24 @@ Matti Kortelainen, PhD
 forename.surname@uef.fi
 
 ## License and copyright
-
+```
 Copyright 2022 University of Eastern Finland.
 
-This demo project utilizes the [pySerial](https://pyserial.readthedocs.io/en/latest/pyserial.html) module for Python, subject to BSD 3-Clause License.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
 
 ## Acknowledgments
 
 This demo project was created as a part of the Experts in Medical Computing project, funded by European Social Fund (ESF; S21823) and the Centre for Economic Development, Transport, and the Environment North Savo.
 
-Idea for implementation of `KeyboardPublisher` class came from the [ros2-keyboard-driver](https://github.com/RoverRobotics-archive/ros2-keyboard-driver) repository's [KeystrokeListen](https://github.com/RoverRobotics-archive/ros2-keyboard-driver/blob/master/keystroke/listen.py) class. Otherwise, the codes were mainly written based on the [ROS 2 Humble tutorials](https://docs.ros.org/en/humble/Tutorials.html).
+Idea for implementation of `KeyboardPublisher` class came from the [ros2-keyboard-driver](https://github.com/RoverRobotics-archive/ros2-keyboard-driver) repository's [KeystrokeListen](https://github.com/RoverRobotics-archive/ros2-keyboard-driver/blob/master/keystroke/listen.py) class. Otherwise, the codes were mainly written based on the [ROS 2 Humble tutorials](https://docs.ros.org/en/humble/Tutorials.html). 
