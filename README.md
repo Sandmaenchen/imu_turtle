@@ -50,6 +50,9 @@ The above command should open a `turtlesim` window and spawn one turtle-resembli
 - Rotating the IMU around y-axis changes the linear velocity along y-axis of the object (the object moves left/right)
 - Pressing space on keyboard resets the reference IMU orientation to the current orientation
 
+[![Video:]]
+(https://uef.cloud.panopto.eu/Panopto/Pages/Embed.aspx?id=3ba3a263-0cb5-4c8e-9624-afb9008ae759&autoplay=false&offerviewer=true&showtitle=false&showbrand=true&captions=true&interactivity=all)    // Video Link
+
 ## Author(s)
 
 Matti Kortelainen, PhD 
